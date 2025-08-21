@@ -1,53 +1,53 @@
-# Swin Transformer - Complete Guide
+# Swin Transformer - 完整指南
 
-## Overview
+## 概述
 
-Swin Transformer (Shifted Window Transformer) is a hierarchical vision transformer that achieves excellent performance on computer vision tasks. Introduced in "Swin Transformer: Hierarchical Vision Transformer using Shifted Windows" (ICCV 2021), it addresses the challenges of applying transformers to vision by using shifted windowing and hierarchical feature maps.
+Swin Transformer（移位窗口Transformer）是一个分层视觉transformer，在计算机视觉任务上取得了优异性能。在"Swin Transformer: Hierarchical Vision Transformer using Shifted Windows"（ICCV 2021）中介绍，通过使用移位窗口和分层特征图解决了将transformer应用于视觉的挑战。
 
-## Key Concepts
+## 核心概念
 
-### Architecture
-- **Hierarchical Design**: Produces feature maps at multiple scales like CNNs
-- **Shifted Window Attention**: Efficient attention computation within local windows
-- **Patch Merging**: Reduces spatial resolution while increasing channel dimension
-- **Relative Position Bias**: Enhances the model's ability to understand spatial relationships
+### 架构
+- **分层设计**：像CNN一样产生多尺度特征图
+- **移位窗口注意力**：在局部窗口内高效计算注意力
+- **补丁合并**：减少空间分辨率同时增加通道维度
+- **相对位置偏置**：增强模型理解空间关系的能力
 
-### Key Innovations
-1. **Window-based Attention**: Limits self-attention to local windows for efficiency
-2. **Shifted Windows**: Enables cross-window connections while maintaining efficiency
-3. **Hierarchical Feature Maps**: Multi-scale representations for various vision tasks
-4. **Linear Computational Complexity**: Scales linearly with image size
+### 关键创新
+1. **基于窗口的注意力**：将自注意力限制在局部窗口内以提高效率
+2. **移位窗口**：在保持效率的同时实现跨窗口连接
+3. **分层特征图**：用于各种视觉任务的多尺度表示
+4. **线性计算复杂度**：与图像大小呈线性关系
 
-## Configuration
+## 配置
 
-### Configuration File: `configs/swin_config.yaml`
+### 配置文件：`configs/swin_config.yaml`
 
 ```yaml
 model_name: "swin_transformer"
-img_size: 224                    # Input image size
-patch_size: 4                    # Patch size for initial embedding
-in_chans: 3                      # Input channels (RGB)
-num_classes: 1000                # Number of output classes
-embed_dim: 96                    # Initial embedding dimension
-depths: [2, 2, 6, 2]            # Number of blocks in each stage
-num_heads: [3, 6, 12, 24]       # Number of attention heads in each stage
-window_size: 7                   # Window size for attention
-mlp_ratio: 4.0                   # MLP expansion ratio
-qkv_bias: true                   # Whether to use bias in QKV projection
-qk_scale: null                   # Scale factor for QK dot product
-drop_rate: 0.0                   # Dropout rate
-attn_drop_rate: 0.0             # Attention dropout rate
-drop_path_rate: 0.1             # Stochastic depth rate
-ape: false                      # Absolute position embedding
-patch_norm: true                # Whether to normalize patch embedding
+img_size: 224                    # 输入图像大小
+patch_size: 4                    # 初始嵌入的补丁大小
+in_chans: 3                      # 输入通道数（RGB）
+num_classes: 1000                # 输出类别数
+embed_dim: 96                    # 初始嵌入维度
+depths: [2, 2, 6, 2]            # 每个阶段的块数
+num_heads: [3, 6, 12, 24]       # 每个阶段的注意力头数
+window_size: 7                   # 注意力窗口大小
+mlp_ratio: 4.0                   # MLP扩展比例
+qkv_bias: true                   # QKV投影是否使用偏置
+qk_scale: null                   # QK点积的缩放因子
+drop_rate: 0.0                   # Dropout率
+attn_drop_rate: 0.0             # 注意力dropout率
+drop_path_rate: 0.1             # 随机深度率
+ape: false                      # 绝对位置嵌入
+patch_norm: true                # 是否标准化补丁嵌入
 ```
 
-### Key Parameters
+### 关键参数
 
-- **`depths`**: Number of transformer blocks in each stage [stage1, stage2, stage3, stage4]
-- **`num_heads`**: Number of attention heads in each stage
-- **`window_size`**: Size of attention windows (7 is typical)
-- **`embed_dim`**: Starting embedding dimension (doubles at each stage)
+- **`depths`**：每个阶段的transformer块数 [阶段1, 阶段2, 阶段3, 阶段4]
+- **`num_heads`**：每个阶段的注意力头数
+- **`window_size`**：注意力窗口大小（通常为7）
+- **`embed_dim`**：起始嵌入维度（每个阶段翻倍）
 - **`drop_path_rate`**: Stochastic depth for regularization
 
 ## Usage Examples

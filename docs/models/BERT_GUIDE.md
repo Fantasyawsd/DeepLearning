@@ -1,51 +1,51 @@
-# BERT (Bidirectional Encoder Representations from Transformers) - Complete Guide
+# BERT (来自Transformer的双向编码器表示) - 完整指南
 
-## Overview
+## 概述
 
-BERT is a bidirectional transformer model that revolutionized natural language processing by introducing bidirectional training of transformers. Published in "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding" (NAACL 2019), it achieves state-of-the-art results on many NLP benchmarks.
+BERT是一个双向transformer模型，通过引入transformer的双向训练革命性地改变了自然语言处理。发表于"BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"（NAACL 2019），在许多NLP基准测试中达到了最先进的结果。
 
-## Key Concepts
+## 核心概念
 
-### Architecture
-- **Bidirectional Transformer**: Processes text in both directions simultaneously
-- **Multi-Layer Architecture**: Stack of transformer encoder layers
-- **Attention Mechanism**: Multi-head self-attention for capturing relationships
-- **Position Embeddings**: Learned position representations
+### 架构
+- **双向Transformer**：同时双向处理文本
+- **多层架构**：Transformer编码器层的堆叠
+- **注意力机制**：多头自注意力用于捕获关系
+- **位置嵌入**：学习的位置表示
 
-### Training Approach
-1. **Masked Language Modeling (MLM)**: Predict masked tokens from context
-2. **Next Sentence Prediction (NSP)**: Determine if two sentences are consecutive
-3. **Bidirectional Context**: Unlike autoregressive models, sees full context
+### 训练方法
+1. **掩码语言建模（MLM）**：从上下文预测掩码标记
+2. **下一句预测（NSP）**：判断两个句子是否连续
+3. **双向上下文**：与自回归模型不同，能看到完整上下文
 
-## Configuration
+## 配置
 
-### Configuration File: `configs/bert_config.yaml`
+### 配置文件：`configs/bert_config.yaml`
 
 ```yaml
 model_name: "bert"
-vocab_size: 30522              # Vocabulary size
-hidden_size: 768               # Hidden dimension
-num_hidden_layers: 12          # Number of transformer layers
-num_attention_heads: 12        # Number of attention heads
-intermediate_size: 3072        # Feed-forward network size
-max_position_embeddings: 512   # Maximum sequence length
-type_vocab_size: 2            # Number of token types (segments)
-attention_probs_dropout_prob: 0.1  # Attention dropout
-hidden_dropout_prob: 0.1      # Hidden layer dropout
-layer_norm_eps: 1e-12         # Layer normalization epsilon
+vocab_size: 30522              # 词汇表大小
+hidden_size: 768               # 隐藏维度
+num_hidden_layers: 12          # Transformer层数
+num_attention_heads: 12        # 注意力头数
+intermediate_size: 3072        # 前馈网络大小
+max_position_embeddings: 512   # 最大序列长度
+type_vocab_size: 2            # 标记类型数量（段落）
+attention_probs_dropout_prob: 0.1  # 注意力dropout
+hidden_dropout_prob: 0.1      # 隐藏层dropout
+layer_norm_eps: 1e-12         # 层归一化epsilon
 ```
 
-### Key Parameters
+### 关键参数
 
-- **`hidden_size`**: Model dimension (768 for base, 1024 for large)
-- **`num_hidden_layers`**: Depth of the model (12 for base, 24 for large)
-- **`num_attention_heads`**: Number of attention heads per layer
-- **`max_position_embeddings`**: Maximum sequence length the model can handle
-- **`vocab_size`**: Size of the vocabulary (typically 30,522 for WordPiece)
+- **`hidden_size`**：模型维度（base为768，large为1024）
+- **`num_hidden_layers`**：模型深度（base为12，large为24）
+- **`num_attention_heads`**：每层的注意力头数
+- **`max_position_embeddings`**：模型能处理的最大序列长度
+- **`vocab_size`**：词汇表大小（WordPiece通常为30,522）
 
-## Usage Examples
+## 使用示例
 
-### Basic BERT Usage
+### BERT基本用法
 
 ```python
 import torch

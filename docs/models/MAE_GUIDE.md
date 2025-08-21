@@ -48,48 +48,48 @@ norm_pix_loss: true  # 是否在损失中标准化像素值
 
 ## 使用示例
 
-### Basic Usage
+### 基本用法
 
 ```python
 import torch
 from models import MAE
 from utils import Config
 
-# Load configuration
+# 加载配置
 config = Config.from_file('configs/mae_config.yaml')
 
-# Create model
+# 创建模型
 model = MAE(config.to_dict())
 model.eval()
 
-# Prepare input (batch of RGB images)
+# 准备输入（RGB图像批次）
 batch_size = 4
 images = torch.randn(batch_size, 3, 224, 224)
 
-# Forward pass
+# 前向传播
 with torch.no_grad():
     outputs = model(images)
 
-print(f"Reconstruction loss: {outputs['loss'].item():.6f}")
-print(f"Predictions shape: {outputs['pred'].shape}")  # Reconstructed patches
-print(f"Mask shape: {outputs['mask'].shape}")         # Binary mask
-print(f"Latent shape: {outputs['latent'].shape}")     # Encoded features
+print(f"重建损失: {outputs['loss'].item():.6f}")
+print(f"预测形状: {outputs['pred'].shape}")  # 重建的补丁
+print(f"掩码形状: {outputs['mask'].shape}")         # 二进制掩码
+print(f"潜在特征形状: {outputs['latent'].shape}")     # 编码特征
 ```
 
-### Custom Configuration
+### 自定义配置
 
 ```python
 from models import MAE
 from utils import Config
 
-# Custom configuration for smaller model
+# 更小模型的自定义配置
 config = Config({
     'model_name': 'mae',
     'img_size': 224,
     'patch_size': 16,
-    'embed_dim': 384,        # Smaller embedding dimension
-    'encoder_depth': 6,      # Fewer encoder layers
-    'encoder_num_heads': 6,  # Fewer attention heads
+    'embed_dim': 384,        # 更小的嵌入维度
+    'encoder_depth': 6,      # 更少的编码器层
+    'encoder_num_heads': 6,  # 更少的注意力头
     'decoder_embed_dim': 256,
     'decoder_depth': 4,
     'decoder_num_heads': 8,
@@ -98,10 +98,10 @@ config = Config({
 })
 
 model = MAE(config.to_dict())
-print(f"Model parameters: {model.count_parameters():,}")
+print(f"模型参数: {model.count_parameters():,}")
 ```
 
-### Visualization of Masking
+### 掩码可视化
 
 ```python
 import torch
@@ -111,24 +111,24 @@ from models import MAE
 from utils import Config
 
 def visualize_mae_reconstruction(model, image):
-    """Visualize original, masked, and reconstructed images."""
+    """可视化原始、掩码和重建图像。"""
     model.eval()
     
     with torch.no_grad():
-        # Add batch dimension
+        # 添加批次维度
         if image.dim() == 3:
             image = image.unsqueeze(0)
         
         outputs = model(image)
         
-        # Get outputs
-        pred = outputs['pred']      # Reconstructed patches
-        mask = outputs['mask']      # Binary mask
+        # 获取输出
+        pred = outputs['pred']      # 重建的补丁
+        mask = outputs['mask']      # 二进制掩码
         
-        # Reconstruct full image
+        # 重建完整图像
         reconstructed = model.unpatchify(pred)
         
-        # Create masked image for visualization
+        # 创建用于可视化的掩码图像
         masked_img = image.clone()
         patch_size = model.patch_embed.patch_size[0]
         H = W = image.shape[-1] // patch_size
@@ -139,12 +139,12 @@ def visualize_mae_reconstruction(model, image):
             mode='nearest'
         )
         
-        # Apply mask (masked regions become gray)
+        # 应用掩码（掩码区域变为灰色）
         masked_img = image * (1 - mask_img) + 0.5 * mask_img
         
         return image[0], masked_img[0], reconstructed[0]
 
-# Example usage
+# 使用示例
 config = Config.from_file('configs/mae_config.yaml')
 model = MAE(config.to_dict())
 
@@ -155,9 +155,9 @@ image = torch.randn(3, 224, 224)
 original, masked, reconstructed = visualize_mae_reconstruction(model, image)
 ```
 
-## Training
+## 训练
 
-### Self-Supervised Pre-training
+### 自监督预训练
 
 ```python
 import torch
@@ -167,18 +167,18 @@ from torch.utils.data import DataLoader
 from models import MAE
 from utils import Config
 
-# Configuration
+# 配置
 config = Config.from_file('configs/mae_config.yaml')
 model = MAE(config.to_dict())
 
-# Setup training
+# 设置训练
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = model.to(device)
 
 optimizer = AdamW(model.parameters(), lr=1e-4, weight_decay=0.05)
 scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100)
 
-# Training loop
+# 训练循环
 model.train()
 for epoch in range(num_epochs):
     total_loss = 0
@@ -187,24 +187,24 @@ for epoch in range(num_epochs):
         
         optimizer.zero_grad()
         
-        # Forward pass
+        # 前向传播
         outputs = model(images)
         loss = outputs['loss']
         
-        # Backward pass
+        # 反向传播
         loss.backward()
         optimizer.step()
         
         total_loss += loss.item()
         
         if batch_idx % 100 == 0:
-            print(f'Epoch {epoch}, Batch {batch_idx}, Loss: {loss.item():.6f}')
+            print(f'轮次 {epoch}, 批次 {batch_idx}, 损失: {loss.item():.6f}')
     
     scheduler.step()
     avg_loss = total_loss / len(dataloader)
-    print(f'Epoch {epoch}, Average Loss: {avg_loss:.6f}')
+    print(f'轮次 {epoch}, 平均损失: {avg_loss:.6f}')
     
-    # Save checkpoint
+    # 保存检查点
     if epoch % 10 == 0:
         torch.save({
             'epoch': epoch,
@@ -214,9 +214,9 @@ for epoch in range(num_epochs):
         }, f'mae_checkpoint_epoch_{epoch}.pth')
 ```
 
-### Fine-tuning for Downstream Tasks
+### 下游任务微调
 
-After pre-training, you can fine-tune MAE for specific tasks:
+预训练后，您可以将MAE微调用于特定任务：
 
 ```python
 # Load pre-trained MAE
