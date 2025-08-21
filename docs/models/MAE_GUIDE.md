@@ -1,52 +1,52 @@
-# MAE (Masked Autoencoder) - Complete Guide
+# MAE (掩码自编码器) - 完整指南
 
-## Overview
+## 概述
 
-MAE (Masked Autoencoder) is a self-supervised learning method for computer vision introduced in the paper "Masked Autoencoders Are Scalable Vision Learners" (CVPR 2022). It learns visual representations by reconstructing masked portions of input images.
+MAE（掩码自编码器）是一种计算机视觉的自监督学习方法，在论文"Masked Autoencoders Are Scalable Vision Learners"（CVPR 2022）中提出。它通过重建输入图像的掩码部分来学习视觉表示。
 
-## Key Concepts
+## 核心概念
 
-### Architecture
-- **Encoder**: Vision Transformer (ViT) that processes only visible patches
-- **Decoder**: Lightweight transformer that reconstructs the full image from latent representation
-- **Masking**: Randomly masks 75% of image patches during training
+### 架构
+- **编码器**：仅处理可见补丁的视觉Transformer（ViT）
+- **解码器**：从潜在表示重建完整图像的轻量级transformer
+- **掩码**：训练时随机掩码75%的图像补丁
 
-### How It Works
-1. Divide image into patches
-2. Randomly mask 75% of patches
-3. Encode only visible patches with ViT encoder
-4. Add mask tokens and positional embeddings
-5. Decode to reconstruct the original image
-6. Compute reconstruction loss only on masked patches
+### 工作原理
+1. 将图像分割成补丁
+2. 随机掩码75%的补丁
+3. 仅用ViT编码器编码可见补丁
+4. 添加掩码标记和位置编码
+5. 解码重建原始图像
+6. 仅在掩码补丁上计算重建损失
 
-## Configuration
+## 配置
 
-### Configuration File: `configs/mae_config.yaml`
+### 配置文件：`configs/mae_config.yaml`
 
 ```yaml
 model_name: "mae"
-img_size: 224          # Input image size
-patch_size: 16         # Patch size for tokenization
-in_chans: 3           # Input channels (RGB)
-embed_dim: 768        # Encoder embedding dimension
-encoder_depth: 12     # Number of encoder layers
-encoder_num_heads: 12 # Number of attention heads in encoder
-decoder_embed_dim: 512 # Decoder embedding dimension
-decoder_depth: 8     # Number of decoder layers
-decoder_num_heads: 16 # Number of attention heads in decoder
-mlp_ratio: 4.0       # MLP expansion ratio
-mask_ratio: 0.75     # Fraction of patches to mask
-norm_pix_loss: true  # Whether to normalize pixel values in loss
+img_size: 224          # 输入图像大小
+patch_size: 16         # 补丁大小用于标记化
+in_chans: 3           # 输入通道数（RGB）
+embed_dim: 768        # 编码器嵌入维度
+encoder_depth: 12     # 编码器层数
+encoder_num_heads: 12 # 编码器注意力头数
+decoder_embed_dim: 512 # 解码器嵌入维度
+decoder_depth: 8     # 解码器层数
+decoder_num_heads: 16 # 解码器注意力头数
+mlp_ratio: 4.0       # MLP扩展比例
+mask_ratio: 0.75     # 掩码补丁的比例
+norm_pix_loss: true  # 是否在损失中标准化像素值
 ```
 
-### Key Parameters
+### 关键参数
 
-- **`mask_ratio`**: Controls how much of the image is masked (0.75 = 75%)
-- **`norm_pix_loss`**: Whether to normalize pixel values for loss computation
-- **`embed_dim`**: Controls model capacity (768 for base, 1024 for large)
-- **`patch_size`**: Smaller patches = higher resolution but more computation
+- **`mask_ratio`**：控制图像掩码的比例（0.75 = 75%）
+- **`norm_pix_loss`**：是否为损失计算标准化像素值
+- **`embed_dim`**：控制模型容量（base为768，large为1024）
+- **`patch_size`**：较小的补丁 = 更高分辨率但计算量更大
 
-## Usage Examples
+## 使用示例
 
 ### Basic Usage
 

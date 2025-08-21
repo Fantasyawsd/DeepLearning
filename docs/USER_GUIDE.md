@@ -1,136 +1,136 @@
-# Deep Learning Models Framework - User Guide
+# 深度学习模型框架 - 用户指南
 
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Getting Started](#getting-started)
-3. [Project Structure](#project-structure)
-4. [Model Usage](#model-usage)
-5. [Training Your Models](#training-your-models)
-6. [Advanced Usage](#advanced-usage)
-7. [Troubleshooting](#troubleshooting)
+## 目录
+1. [介绍](#介绍)
+2. [开始使用](#开始使用)
+3. [项目结构](#项目结构)
+4. [模型使用](#模型使用)
+5. [训练模型](#训练模型)
+6. [高级用法](#高级用法)
+7. [故障排除](#故障排除)
 
-## Introduction
+## 介绍
 
-Welcome to the Deep Learning Models Framework! This project provides PyTorch implementations of three state-of-the-art deep learning models:
+欢迎使用深度学习模型框架！本项目提供了三个前沿深度学习模型的PyTorch实现：
 
-- **MAE (Masked Autoencoder)** - Self-supervised learning for computer vision
-- **BERT** - Bidirectional transformers for natural language processing  
-- **Swin Transformer** - Hierarchical vision transformer for image classification
+- **MAE (掩码自编码器)** - 计算机视觉的自监督学习
+- **BERT** - 自然语言处理的双向Transformer
+- **Swin Transformer** - 图像分类的分层视觉Transformer
 
-All models are built on a unified framework with consistent APIs, making it easy to experiment with different architectures.
+所有模型都构建在统一的框架上，具有一致的API，便于试验不同的架构。
 
-## Getting Started
+## 开始使用
 
-### Prerequisites
+### 环境要求
 
-- Python 3.8 or higher
-- PyTorch 1.12.0 or higher
-- CUDA-compatible GPU (recommended for training)
+- Python 3.8 或更高版本
+- PyTorch 1.12.0 或更高版本
+- CUDA兼容的GPU（推荐用于训练）
 
-### Installation
+### 安装
 
-1. **Clone the repository:**
+1. **克隆仓库：**
    ```bash
    git clone https://github.com/Fantasyawsd/DeepLearning.git
    cd DeepLearning
    ```
 
-2. **Install dependencies:**
+2. **安装依赖：**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Install the package in development mode:**
+3. **以开发模式安装包：**
    ```bash
    pip install -e .
    ```
 
-4. **Verify installation:**
+4. **验证安装：**
    ```bash
-   python -c "from models import MAE, BERT, SwinTransformer; print('Installation successful!')"
+   python -c "from models import MAE, BERT, SwinTransformer; print('安装成功！')"
    ```
 
-### Quick Start
+### 快速开始
 
-Run the example scripts to verify everything works:
+运行示例脚本验证一切正常：
 
 ```bash
-# Test MAE
+# 测试MAE
 python examples/mae_example.py
 
-# Test BERT
+# 测试BERT
 python examples/bert_example.py
 
-# Test Swin Transformer
+# 测试Swin Transformer
 python examples/swin_transformer_example.py
 ```
 
-## Project Structure
+## 项目结构
 
 ```
 DeepLearning/
-├── models/                    # Model implementations
-│   ├── base.py               # Base model class
-│   ├── mae.py                # MAE implementation
-│   ├── bert.py               # BERT implementation
-│   └── swin_transformer.py   # Swin Transformer implementation
-├── utils/                    # Utility modules
-│   ├── config.py            # Configuration management
-│   ├── logger.py            # Logging utilities
-│   └── metrics.py           # Evaluation metrics
-├── configs/                  # Model configurations
-│   ├── mae_config.yaml      # MAE configuration
-│   ├── bert_config.yaml     # BERT configuration
-│   └── swin_config.yaml     # Swin Transformer configuration
-├── examples/                 # Usage examples
-├── docs/                     # Documentation
-├── datasets/                 # Dataset utilities
-├── train.py                  # Training script
-└── requirements.txt          # Dependencies
+├── models/                    # 模型实现
+│   ├── base.py               # 基础模型类
+│   ├── mae.py                # MAE实现
+│   ├── bert.py               # BERT实现
+│   └── swin_transformer.py   # Swin Transformer实现
+├── utils/                    # 工具模块
+│   ├── config.py            # 配置管理
+│   ├── logger.py            # 日志工具
+│   └── metrics.py           # 评估指标
+├── configs/                  # 模型配置
+│   ├── mae_config.yaml      # MAE配置
+│   ├── bert_config.yaml     # BERT配置
+│   └── swin_config.yaml     # Swin Transformer配置
+├── examples/                 # 使用示例
+├── docs/                     # 文档
+├── datasets/                 # 数据集工具
+├── train.py                  # 训练脚本
+└── requirements.txt          # 依赖
 ```
 
-## Model Usage
+## 模型使用
 
-### Basic Usage Pattern
+### 基本使用模式
 
-All models follow the same usage pattern:
+所有模型都遵循相同的使用模式：
 
 ```python
 from models import ModelName
 from utils import Config
 
-# 1. Load configuration
+# 1. 加载配置
 config = Config.from_file('configs/model_config.yaml')
-# OR create config programmatically
+# 或者以编程方式创建配置
 config = Config({
     'model_name': 'model_name',
     'param1': value1,
     'param2': value2,
 })
 
-# 2. Create model
+# 2. 创建模型
 model = ModelName(config.to_dict())
 
-# 3. Use the model
-model.eval()  # Set to evaluation mode
+# 3. 使用模型
+model.eval()  # 设置为评估模式
 outputs = model(inputs)
 
-# 4. Get model information
+# 4. 获取模型信息
 model.summary()
-print(f"Model parameters: {model.count_parameters()}")
+print(f"模型参数数量: {model.count_parameters()}")
 ```
 
-### Configuration Management
+### 配置管理
 
-The framework uses YAML configuration files for easy model customization:
+框架使用YAML配置文件来方便模型自定义：
 
 ```python
 from utils import Config
 
-# Load from file
+# 从文件加载
 config = Config.from_file('configs/mae_config.yaml')
 
-# Create programmatically
+# 以编程方式创建
 config = Config({
     'model_name': 'mae',
     'img_size': 224,
@@ -138,42 +138,42 @@ config = Config({
     'embed_dim': 768
 })
 
-# Access values
+# 访问值
 embed_dim = config.get('embed_dim', default_value)
 
-# Convert to dictionary
+# 转换为字典
 model_config = config.to_dict()
 ```
 
-### Model Checkpoints
+### 模型检查点
 
-All models support checkpoint saving and loading:
+所有模型都支持检查点保存和加载：
 
 ```python
-# Save checkpoint
+# 保存检查点
 model.save_checkpoint('path/to/checkpoint.pth')
 
-# Load checkpoint
+# 加载检查点
 model.load_checkpoint('path/to/checkpoint.pth')
 
-# Save only state dict
+# 仅保存状态字典
 torch.save(model.state_dict(), 'model_weights.pth')
 
-# Load state dict
+# 加载状态字典
 model.load_state_dict(torch.load('model_weights.pth'))
 ```
 
-## Training Your Models
+## 训练模型
 
-### Using the Training Script
+### 使用训练脚本
 
-The framework includes a comprehensive training script:
+框架包含一个全面的训练脚本：
 
 ```bash
-# Basic training
+# 基础训练
 python train.py --config configs/mae_config.yaml --output_dir outputs/mae_experiment
 
-# Advanced training with custom parameters
+# 使用自定义参数的高级训练
 python train.py \
     --config configs/bert_config.yaml \
     --output_dir outputs/bert_experiment \
@@ -184,9 +184,9 @@ python train.py \
     --save_every 10
 ```
 
-### Custom Training Loop
+### 自定义训练循环
 
-For more control, implement your own training loop:
+要获得更多控制，实现自己的训练循环：
 
 ```python
 import torch
@@ -195,119 +195,119 @@ from torch.optim import AdamW
 from models import MAE
 from utils import Config
 
-# Setup
+# 设置
 config = Config.from_file('configs/mae_config.yaml')
 model = MAE(config.to_dict())
 optimizer = AdamW(model.parameters(), lr=1e-4)
 criterion = nn.MSELoss()
 
-# Training loop
+# 训练循环
 model.train()
 for epoch in range(num_epochs):
     for batch_idx, (data, _) in enumerate(dataloader):
         optimizer.zero_grad()
         
-        # Forward pass
+        # 前向传播
         outputs = model(data)
         loss = outputs['loss']
         
-        # Backward pass
+        # 反向传播
         loss.backward()
         optimizer.step()
         
         if batch_idx % 100 == 0:
-            print(f'Epoch {epoch}, Batch {batch_idx}, Loss: {loss.item():.6f}')
+            print(f'轮次 {epoch}, 批次 {batch_idx}, 损失: {loss.item():.6f}')
     
-    # Save checkpoint
+    # 保存检查点
     if epoch % 10 == 0:
         model.save_checkpoint(f'checkpoint_epoch_{epoch}.pth')
 ```
 
-## Advanced Usage
+## 高级用法
 
-### Parameter Freezing
+### 参数冻结
 
-Control which parts of the model to train:
+控制模型的哪些部分需要训练：
 
 ```python
-# Freeze encoder, train only decoder
+# 冻结编码器，仅训练解码器
 model.freeze_encoder()
 
-# Freeze all parameters except classification head
+# 冻结所有参数，除了分类头
 model.freeze_all()
 model.unfreeze_classifier()
 
-# Custom freezing
+# 自定义冻结
 for name, param in model.named_parameters():
     if 'encoder' in name:
         param.requires_grad = False
 ```
 
-### Model Inspection
+### 模型检查
 
-Get detailed information about your models:
+获取模型的详细信息：
 
 ```python
-# Model summary
+# 模型摘要
 model.summary()
 
-# Parameter count
+# 参数计数
 total_params = model.count_parameters()
 trainable_params = model.count_parameters(only_trainable=True)
 
-# Layer information
+# 层信息
 for name, module in model.named_modules():
     print(f"{name}: {module}")
 
-# Parameter information
+# 参数信息
 for name, param in model.named_parameters():
     print(f"{name}: {param.shape}, requires_grad: {param.requires_grad}")
 ```
 
-### Multi-GPU Training
+### 多GPU训练
 
-Use DataParallel or DistributedDataParallel:
+使用DataParallel或DistributedDataParallel：
 
 ```python
 import torch.nn as nn
 
-# DataParallel (simpler but less efficient)
+# DataParallel（更简单但效率较低）
 if torch.cuda.device_count() > 1:
     model = nn.DataParallel(model)
 model = model.cuda()
 
-# DistributedDataParallel (recommended for multi-GPU)
-# See PyTorch DDP documentation for detailed setup
+# DistributedDataParallel（推荐用于多GPU）
+# 详细设置请参见PyTorch DDP文档
 ```
 
-## Troubleshooting
+## 故障排除
 
-### Common Issues
+### 常见问题
 
-1. **CUDA out of memory:**
-   - Reduce batch size
-   - Use gradient accumulation
-   - Enable mixed precision training
+1. **CUDA内存不足：**
+   - 减少批次大小
+   - 使用梯度累积
+   - 启用混合精度训练
 
-2. **Model not learning:**
-   - Check learning rate (try 1e-3, 1e-4, 1e-5)
-   - Verify data preprocessing
-   - Check loss function and metrics
+2. **模型不学习：**
+   - 检查学习率（尝试1e-3、1e-4、1e-5）
+   - 验证数据预处理
+   - 检查损失函数和指标
 
-3. **Import errors:**
-   - Ensure all dependencies are installed
-   - Check Python path and package installation
+3. **导入错误：**
+   - 确保所有依赖都已安装
+   - 检查Python路径和包安装
 
-4. **Configuration errors:**
-   - Validate YAML syntax
-   - Check parameter names and values
-   - Use Config.validate() if available
+4. **配置错误：**
+   - 验证YAML语法
+   - 检查参数名称和值
+   - 如果可用，使用Config.validate()
 
-### Performance Optimization
+### 性能优化
 
-1. **Memory optimization:**
+1. **内存优化：**
    ```python
-   # Enable mixed precision
+   # 启用混合精度
    from torch.cuda.amp import autocast, GradScaler
    
    scaler = GradScaler()
@@ -324,7 +324,7 @@ model = model.cuda()
        scaler.update()
    ```
 
-2. **Gradient accumulation:**
+2. **梯度累积：**
    ```python
    accumulation_steps = 4
    
@@ -338,19 +338,19 @@ model = model.cuda()
            optimizer.zero_grad()
    ```
 
-### Getting Help
+### 获取帮助
 
-1. Check the model-specific documentation in `docs/models/`
-2. Review the example scripts in `examples/`
-3. Create an issue on GitHub with:
-   - Full error message
-   - Code snippet that reproduces the issue
-   - Environment details (Python version, PyTorch version, etc.)
+1. 查看`docs/models/`中的模型特定文档
+2. 查看`examples/`中的示例脚本
+3. 在GitHub上创建Issue，包含：
+   - 完整的错误信息
+   - 能重现问题的代码片段
+   - 环境详情（Python版本、PyTorch版本等）
 
-## Next Steps
+## 下一步
 
-- Read the individual model guides in `docs/models/`
-- Explore the example scripts in `examples/`
-- Try training on your own data
-- Experiment with different configurations
+- 阅读`docs/models/`中的各个模型指南
+- 探索`examples/`中的示例脚本
+- 尝试在自己的数据上训练
+- 试验不同的配置
 - Contribute improvements back to the project!
