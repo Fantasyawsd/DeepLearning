@@ -1,0 +1,100 @@
+# MAE (Masked Autoencoder) 模型配置文件
+# 基于论文 "Masked Autoencoders Are Scalable Vision Learners"
+
+# 模型配置
+model_name: "mae"
+img_size: 224                    # 输入图像尺寸
+patch_size: 16                   # 补丁尺寸
+in_chans: 3                      # 输入通道数
+
+# 编码器配置
+embed_dim: 1024                  # 编码器嵌入维度
+depth: 24                        # 编码器层数
+num_heads: 16                    # 注意力头数
+mlp_ratio: 4.0                   # MLP隐藏层维度比例
+
+# 解码器配置
+decoder_embed_dim: 512           # 解码器嵌入维度
+decoder_depth: 8                 # 解码器层数
+decoder_num_heads: 16            # 解码器注意力头数
+
+# 训练配置
+mask_ratio: 0.75                 # 掩码比例
+norm_pix_loss: false             # 是否标准化像素损失
+
+# 数据集配置
+dataset:
+  name: "cifar10"                # 数据集名称 (imagenet/cifar10/cifar100/custom)
+  root: "./data"                 # 数据集根目录
+  use_validation: true           # 是否使用验证集
+  num_workers: 4                 # 数据加载工作进程数
+  val_batch_size: 64             # 验证批次大小
+
+# 训练参数
+epochs: 100                      # 训练轮数
+batch_size: 32                   # 训练批次大小
+test_batch_size: 32              # 测试批次大小
+
+# 优化器配置
+optimizer:
+  name: "adamw"                  # 优化器类型 (adamw/sgd)
+  lr: 1.5e-4                     # 学习率
+  weight_decay: 0.05             # 权重衰减
+  betas: [0.9, 0.95]             # AdamW的beta参数
+
+# 学习率调度器配置
+scheduler:
+  name: "cosine"                 # 调度器类型 (cosine/step/plateau)
+  min_lr: 0.0                    # 最小学习率
+
+# 训练设置
+use_amp: true                    # 使用混合精度训练
+log_interval: 100                # 日志记录间隔
+save_interval: 50                # 模型保存间隔
+plot_interval: 10                # 绘图间隔
+
+# 输出配置
+output_dir: "./outputs/mae"      # 输出目录
+
+# 大规模配置 (用于ImageNet训练)
+# 如果使用ImageNet数据集，建议使用以下配置:
+large_config:
+  img_size: 224
+  patch_size: 16
+  embed_dim: 1024
+  depth: 24
+  num_heads: 16
+  decoder_embed_dim: 512
+  decoder_depth: 8
+  decoder_num_heads: 16
+  batch_size: 256                # 更大的批次大小
+  lr: 1.5e-4
+  epochs: 800                    # 更多训练轮数
+  
+# 基础配置 (用于快速实验)
+base_config:
+  img_size: 224
+  patch_size: 16
+  embed_dim: 768
+  depth: 12
+  num_heads: 12
+  decoder_embed_dim: 512
+  decoder_depth: 8
+  decoder_num_heads: 16
+  batch_size: 64
+  lr: 1.5e-4
+  epochs: 200
+
+# 小型配置 (用于资源受限环境)
+small_config:
+  img_size: 224
+  patch_size: 16
+  embed_dim: 384
+  depth: 6
+  num_heads: 6
+  decoder_embed_dim: 256
+  decoder_depth: 4
+  decoder_num_heads: 8
+  batch_size: 32
+  lr: 1.5e-4
+  epochs: 100
