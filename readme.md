@@ -2,6 +2,24 @@
 
 这是一个深度学习领域各种经典模型的PyTorch复现项目。
 
+*This is a PyTorch implementation project of various classic deep learning models.*
+
+## 📖 Documentation | 文档
+
+**English Documentation:**
+- **[Complete User Guide](docs/USER_GUIDE.md)** - Comprehensive framework tutorial
+- **[Getting Started Tutorial](docs/TUTORIAL.md)** - Step-by-step tutorial with examples
+- **[MAE Complete Guide](docs/models/MAE_GUIDE.md)** - Detailed MAE model documentation
+- **[BERT Complete Guide](docs/models/BERT_GUIDE.md)** - Detailed BERT model documentation  
+- **[Swin Transformer Complete Guide](docs/models/SWIN_TRANSFORMER_GUIDE.md)** - Detailed Swin Transformer documentation
+
+**中文文档:**
+- **[用户指南](docs/USER_GUIDE.md)** - 完整的框架使用教程
+- **[入门教程](docs/TUTORIAL.md)** - 逐步教程和代码示例
+- **[MAE 完整指南](docs/models/MAE_GUIDE.md)** - MAE模型详细使用说明
+- **[BERT 完整指南](docs/models/BERT_GUIDE.md)** - BERT模型详细使用说明
+- **[Swin Transformer 完整指南](docs/models/SWIN_TRANSFORMER_GUIDE.md)** - Swin Transformer模型详细使用说明
+
 ## 已实现的模型
 
 ### 1. MAE (Masked Autoencoder)
@@ -71,6 +89,14 @@ pip install -e .
 ```
 
 ## 使用方法
+
+### 📚 详细文档
+
+查看完整使用指南和教程：
+- **[用户指南](docs/USER_GUIDE.md)** - 完整的框架使用教程
+- **[MAE 完整指南](docs/models/MAE_GUIDE.md)** - MAE模型详细使用说明
+- **[BERT 完整指南](docs/models/BERT_GUIDE.md)** - BERT模型详细使用说明
+- **[Swin Transformer 完整指南](docs/models/SWIN_TRANSFORMER_GUIDE.md)** - Swin Transformer模型详细使用说明
 
 ### 1. 快速体验
 
