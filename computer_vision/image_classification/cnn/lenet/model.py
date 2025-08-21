@@ -17,7 +17,7 @@ from typing import Dict, Any, Optional
 
 # 添加路径以导入基础模块
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../../../..'))
-from models.base import BaseModel
+from shared.base_model import BaseModel
 
 
 class LeNet5(BaseModel):
