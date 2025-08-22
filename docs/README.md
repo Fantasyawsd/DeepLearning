@@ -12,8 +12,10 @@
 
 ### 模型特定指南
 - **[MAE指南](models/MAE_GUIDE.md)** - 掩码自编码器完整指南
-- **[BERT指南](models/BERT_GUIDE.md)** - BERT及其变体完整指南
-- **[Swin Transformer指南](models/SWIN_TRANSFORMER_GUIDE.md)** - Swin Transformer完整指南
+
+**注意：** 项目已重构为域分类结构。每个模型在其目录下都有详细的README文档：
+- 计算机视觉模型：`computer_vision/` 目录下
+- 自然语言处理模型：`nlp/` 目录下
 
 ## 🚀 快速开始
 
@@ -45,16 +47,19 @@
 ## 🔧 配置管理
 
 所有模型使用位于[`configs/`](../configs/)中的YAML配置文件：
-- `mae_config.yaml` - MAE配置
-- `bert_config.yaml` - BERT配置  
-- `swin_config.yaml` - Swin Transformer配置
+- `mae_config.yaml` - MAE掩码自编码器配置
+- `vit_config.yaml` - Vision Transformer配置
+- `lenet_config.yaml` - LeNet配置
+- `resnet_config.yaml` - ResNet配置
+- `gpt_config.yaml` - GPT配置
+- `yolo_config.yaml` - YOLOv1配置
 
 ## 💡 示例和教程
 
 查看[`examples/`](../examples/)目录获取工作代码：
 - `mae_example.py` - MAE使用示例
-- `bert_example.py` - BERT使用示例
-- `swin_transformer_example.py` - Swin Transformer使用示例
+
+更多示例请查看各模型目录下的具体实现。
 
 ## 🛠️ 开发和贡献
 

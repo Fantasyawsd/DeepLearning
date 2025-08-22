@@ -1,3 +1,5 @@
 """
-Example usage scripts for all models.
+深度学习模型使用示例
+
+本目录包含所有模型的使用示例，展示如何使用新的域分类结构。
 """

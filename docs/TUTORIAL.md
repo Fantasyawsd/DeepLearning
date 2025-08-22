@@ -10,7 +10,7 @@
 
 ```python
 # 导入模型
-from models import MAE, BERT, SwinTransformer
+from models import MAE, ViT, LeNet, ResNet, GPT
 from utils import Config
 
 # 导入PyTorch

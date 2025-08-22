@@ -1,0 +1,40 @@
+# GPT 配置文件
+
+model_name: "gpt"
+
+# 模型架构
+vocab_size: 50257          # 词汇表大小
+block_size: 1024           # 上下文长度
+n_layer: 12                # Transformer层数
+n_head: 12                 # 注意力头数
+n_embd: 768                # 嵌入维度
+dropout: 0.1               # Dropout率
+bias: true                 # 线性层和LayerNorm是否使用偏置
+
+# 训练参数
+batch_size: 8
+learning_rate: 6e-4
+weight_decay: 1e-1
+beta1: 0.9
+beta2: 0.95
+grad_clip: 1.0             # 梯度裁剪
+epochs: 100
+
+# 数据参数
+dataset: "openwebtext"     # 数据集名称
+data_dir: "data"           # 数据目录
+
+# 优化器
+optimizer: "adamw"
+warmup_iters: 2000         # 预热迭代数
+lr_decay_iters: 600000     # 学习率衰减迭代数
+min_lr: 6e-5               # 最小学习率
+
+# 评估
+eval_interval: 2000        # 评估间隔
+eval_iters: 200            # 评估迭代数
+
+# 设备
+device: "cuda"
+compile: true              # 是否使用torch.compile
+dtype: "bfloat16"          # 数据类型

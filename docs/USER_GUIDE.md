@@ -11,11 +11,17 @@
 
 ## 介绍
 
-欢迎使用深度学习模型框架！本项目提供了三个前沿深度学习模型的PyTorch实现：
+欢迎使用深度学习模型框架！本项目提供了按领域分类的前沿深度学习模型的PyTorch实现：
 
-- **MAE (掩码自编码器)** - 计算机视觉的自监督学习
-- **BERT** - 自然语言处理的双向Transformer
-- **Swin Transformer** - 图像分类的分层视觉Transformer
+### 🎯 计算机视觉模型
+- **MAE (掩码自编码器)** - 自监督视觉表示学习
+- **ViT (视觉Transformer)** - 基于注意力机制的图像分类
+- **LeNet** - 经典CNN架构
+- **ResNet** - 残差网络系列
+- **YOLOv1** - 实时目标检测
+
+### 🎯 自然语言处理模型  
+- **GPT** - 生成式预训练Transformer
 
 所有模型都构建在统一的框架上，具有一致的API，便于试验不同的架构。
 
@@ -47,7 +53,7 @@
 
 4. **验证安装：**
    ```bash
-   python -c "from models import MAE, BERT, SwinTransformer; print('安装成功！')"
+   python -c "from models import MAE, ViT, LeNet, ResNet, GPT; print('安装成功！')"
    ```
 
 ### 快速开始
@@ -57,37 +63,43 @@
 ```bash
 # 测试MAE
 python examples/mae_example.py
-
-# 测试BERT
-python examples/bert_example.py
-
-# 测试Swin Transformer
-python examples/swin_transformer_example.py
 ```
 
 ## 项目结构
 
 ```
 DeepLearning/
-├── models/                    # 模型实现
-│   ├── base.py               # 基础模型类
-│   ├── mae.py                # MAE实现
-│   ├── bert.py               # BERT实现
-│   └── swin_transformer.py   # Swin Transformer实现
-├── utils/                    # 工具模块
-│   ├── config.py            # 配置管理
-│   ├── logger.py            # 日志工具
-│   └── metrics.py           # 评估指标
-├── configs/                  # 模型配置
-│   ├── mae_config.yaml      # MAE配置
-│   ├── bert_config.yaml     # BERT配置
-│   └── swin_config.yaml     # Swin Transformer配置
-├── examples/                 # 使用示例
-├── docs/                     # 文档
-├── datasets/                 # 数据集工具
-├── train.py                  # 训练脚本
-└── requirements.txt          # 依赖
+├── computer_vision/            # 计算机视觉
+│   ├── image_classification/   # 图像分类
+│   │   ├── cnn/               # CNN系列
+│   │   │   ├── lenet/         # LeNet-5实现
+│   │   │   └── resnet/        # ResNet系列
+│   │   └── transformer/       # Transformer系列
+│   │       ├── mae/           # 掩码自编码器
+│   │       └── vit/           # 视觉Transformer
+│   └── object_detection/      # 目标检测
+│       └── yolo_series/       # YOLO系列
+│           └── yolov1/        # YOLOv1实现
+├── nlp/                       # 自然语言处理
+│   └── language_models/       # 语言模型
+│       └── gpt_series/        # GPT系列
+│           └── gpt/           # GPT-1实现
+├── shared/                    # 共享组件
+│   └── base_model.py         # 基础模型类
+├── utils/                     # 工具模块
+├── configs/                   # 配置文件
+├── examples/                  # 使用示例
+├── docs/                      # 文档
+└── models.py                  # 模型导入接口
 ```
+
+每个模型目录都包含：
+- `model.py` - 模型实现
+- `train.py` - 训练脚本  
+- `test.py` - 测试脚本
+- `dataset.py` - 数据处理
+- `config.yaml` - 配置文件
+- `README.md` - 使用说明
 
 ## 模型使用
 
@@ -96,7 +108,7 @@ DeepLearning/
 所有模型都遵循相同的使用模式：
 
 ```python
-from models import ModelName
+from models import MAE  # 或其他模型: ViT, LeNet, ResNet, GPT
 from utils import Config
 
 # 1. 加载配置

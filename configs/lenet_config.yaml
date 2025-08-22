@@ -1,0 +1,34 @@
+# LeNet 配置文件
+
+model_name: "lenet"
+
+# 模型架构
+input_channels: 1          # 输入通道数（灰度图像）
+num_classes: 10            # 分类数量
+variant: "lenet5"          # 变体：lenet5 或 variant
+
+# 训练参数
+batch_size: 128
+learning_rate: 1e-3
+weight_decay: 1e-4
+epochs: 50
+
+# 数据集
+dataset: "mnist"           # 数据集
+img_size: 32               # 图像大小
+normalize: true            # 是否标准化
+
+# 优化器
+optimizer: "adam"
+beta1: 0.9
+beta2: 0.999
+
+# 学习率调度
+lr_scheduler: "step"
+step_size: 20
+gamma: 0.5
+
+# 其他
+device: "cuda"
+num_workers: 4
+pin_memory: true

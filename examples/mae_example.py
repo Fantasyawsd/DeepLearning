@@ -1,17 +1,22 @@
 """
-Example usage of MAE (Masked Autoencoder) model.
+MAE (掩码自编码器) 使用示例
 """
 
-import torch
+import sys
+import os
 import numpy as np
+
+# 添加项目根目录到路径
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from models import MAE
 from utils import Config
 
 def mae_example():
-    """Example usage of MAE model."""
-    print("=== MAE (Masked Autoencoder) Example ===")
+    """MAE模型使用示例"""
+    print("=== MAE (掩码自编码器) 使用示例 ===")
     
-    # Create configuration
+    # 创建配置
     config = Config({
         'model_name': 'mae',
         'img_size': 224,
