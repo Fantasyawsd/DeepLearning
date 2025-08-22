@@ -1,0 +1,41 @@
+# ResNet 配置文件
+
+model_name: "resnet"
+
+# 模型架构
+variant: "resnet50"        # 变体：resnet18, resnet34, resnet50, resnet101, resnet152
+num_classes: 1000          # 分类数量
+pretrained: false          # 是否使用预训练权重
+zero_init_residual: false # 是否零初始化残差
+
+# 训练参数
+batch_size: 256
+learning_rate: 0.1
+weight_decay: 1e-4
+momentum: 0.9
+epochs: 90
+
+# 数据增强
+use_mixup: false
+mixup_alpha: 0.2
+use_cutmix: false
+cutmix_alpha: 1.0
+
+# 优化器
+optimizer: "sgd"
+nesterov: true
+
+# 学习率调度
+lr_scheduler: "multistep"
+milestones: [30, 60]
+gamma: 0.1
+
+# 数据集
+dataset: "imagenet"
+img_size: 224
+crop_size: 224
+
+# 其他
+device: "cuda"
+num_workers: 4
+pin_memory: true

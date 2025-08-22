@@ -1,0 +1,43 @@
+# Vision Transformer (ViT) 配置文件
+
+model_name: "vit"
+
+# 模型架构
+img_size: 224              # 输入图像大小
+patch_size: 16             # 图像补丁大小
+num_classes: 1000          # 分类数量
+embed_dim: 768             # 嵌入维度
+depth: 12                  # Transformer层数
+num_heads: 12              # 注意力头数
+mlp_ratio: 4.0             # MLP扩展比例
+qkv_bias: true             # QKV投影是否使用偏置
+drop_rate: 0.0             # Dropout率
+attn_drop_rate: 0.0        # 注意力Dropout率
+drop_path_rate: 0.1        # DropPath率
+
+# 训练参数
+batch_size: 32
+learning_rate: 1e-3
+weight_decay: 0.3
+epochs: 300
+warmup_epochs: 10
+
+# 数据增强
+use_mixup: true
+mixup_alpha: 0.8
+use_cutmix: true
+cutmix_alpha: 1.0
+
+# 优化器
+optimizer: "adamw"
+beta1: 0.9
+beta2: 0.999
+
+# 学习率调度
+lr_scheduler: "cosine"
+min_lr: 1e-6
+
+# 其他
+device: "cuda"
+num_workers: 4
+pin_memory: true

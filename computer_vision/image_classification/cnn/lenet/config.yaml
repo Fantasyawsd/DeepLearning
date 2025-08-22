@@ -1,0 +1,66 @@
+# LeNet-5 模型配置文件
+
+# 模型参数
+model:
+  name: "LeNet-5"
+  num_classes: 10  # 分类类别数 (MNIST: 10, CIFAR-10: 10, CIFAR-100: 100)
+  input_channels: 1  # 输入通道数 (灰度图: 1, RGB图: 3)
+  input_size: 32  # 输入图像尺寸
+  dropout: 0.0  # Dropout比例，原始LeNet不使用
+
+# 训练参数
+training:
+  batch_size: 128
+  epochs: 50
+  learning_rate: 0.001
+  weight_decay: 1e-4
+  
+  # 学习率调度
+  scheduler:
+    type: "StepLR"  # StepLR, CosineAnnealingLR, ReduceLROnPlateau
+    step_size: 15
+    gamma: 0.1
+  
+  # 优化器
+  optimizer:
+    type: "Adam"  # Adam, SGD, AdamW
+    momentum: 0.9  # SGD使用
+
+# 数据参数
+data:
+  dataset: "MNIST"  # MNIST, CIFAR10, CIFAR100
+  data_root: "./data"
+  num_workers: 4
+  pin_memory: true
+  
+  # 数据增强
+  augmentation:
+    enabled: true
+    horizontal_flip: false  # MNIST不需要翻转
+    rotation: 10
+    normalize:
+      mean: [0.1307]  # MNIST归一化参数
+      std: [0.3081]
+
+# 验证参数
+validation:
+  val_split: 0.1  # 验证集比例
+  eval_frequency: 1  # 每隔多少个epoch验证一次
+
+# 保存参数
+save:
+  checkpoint_dir: "./checkpoints/lenet"
+  save_frequency: 10  # 每隔多少个epoch保存一次
+  save_best_only: true  # 是否只保存最佳模型
+
+# 日志参数
+logging:
+  log_dir: "./logs/lenet"
+  tensorboard: true
+  print_frequency: 100  # 每隔多少个batch打印一次
+
+# 硬件参数
+device:
+  use_cuda: true
+  device_ids: [0]  # GPU设备ID列表
+  mixed_precision: false  # 混合精度训练

@@ -1,0 +1,47 @@
+# YOLOv1 配置文件
+
+model_name: "yolov1"
+
+# 模型架构
+S: 7                       # 网格大小
+B: 2                       # 边界框数量
+C: 20                      # 类别数量（PASCAL VOC）
+img_size: 448              # 输入图像大小
+
+# 损失权重
+coord_weight: 5.0          # 坐标损失权重
+noobj_weight: 0.5          # 无目标损失权重
+
+# 训练参数
+batch_size: 64
+learning_rate: 1e-3
+weight_decay: 5e-4
+epochs: 135
+
+# 数据增强
+use_augmentation: true
+color_jitter: 0.1
+random_crop: true
+random_flip: true
+
+# 优化器
+optimizer: "sgd"
+momentum: 0.9
+
+# 学习率调度
+lr_scheduler: "multistep"
+milestones: [75, 105]
+gamma: 0.1
+
+# 数据集
+dataset: "voc"             # PASCAL VOC
+year: "2007+2012"          # 数据集年份
+
+# NMS参数
+conf_threshold: 0.1        # 置信度阈值
+nms_threshold: 0.5         # NMS阈值
+
+# 其他
+device: "cuda"
+num_workers: 4
+pin_memory: true
