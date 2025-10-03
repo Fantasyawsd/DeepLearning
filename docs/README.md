@@ -7,15 +7,24 @@
 ### 主要指南
 - **[用户指南](USER_GUIDE.md)** - 框架入门完整教程
 - **[入门教程](TUTORIAL.md)** - 带代码示例的逐步教程
+- **[🌟 多模态大模型完整教程](MULTIMODAL_TUTORIAL.md)** - 从入门到精通的系统教程 ⭐
 - **[安装指南](#安装)** - 逐步安装说明
 - **[训练指南](#训练)** - 如何使用框架训练模型
 
 ### 模型特定指南
+
+**单模态模型:**
 - **[MAE指南](models/MAE_GUIDE.md)** - 掩码自编码器完整指南
+
+**多模态模型:**
+- **[CLIP指南](../multimodal/clip/README.md)** - 图像-文本对比学习
+- **[DALL-E指南](../multimodal/dalle/README.md)** - 文本到图像生成
+- **[BLIP指南](../multimodal/blip/README.md)** - 统一的视觉-语言理解和生成
 
 **注意：** 项目已重构为域分类结构。每个模型在其目录下都有详细的README文档：
 - 计算机视觉模型：`computer_vision/` 目录下
 - 自然语言处理模型：`nlp/` 目录下
+- 多模态模型：`multimodal/` 目录下
 
 ## 🚀 快速开始
 

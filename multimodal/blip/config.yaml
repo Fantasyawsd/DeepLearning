@@ -1,0 +1,107 @@
+# BLIP Model Configuration
+
+model:
+  # 模型类型
+  name: "blip_base"
+  
+  # 视觉编码器
+  visual_encoder:
+    type: "vision_transformer"
+    image_size: 224
+    patch_size: 16
+    embed_dim: 768
+    depth: 12
+    num_heads: 12
+  
+  # 文本编码器（BERT-like）
+  text_encoder:
+    vocab_size: 30522
+    max_position_embeddings: 512
+    embed_dim: 768
+    depth: 6
+    num_heads: 12
+    intermediate_size: 3072
+  
+  # 文本解码器
+  text_decoder:
+    vocab_size: 30522
+    max_position_embeddings: 512
+    embed_dim: 768
+    depth: 6
+    num_heads: 12
+    intermediate_size: 3072
+    is_decoder: true
+  
+  # 融合层
+  fusion:
+    cross_attention_freq: 2  # 每2层添加交叉注意力
+  
+  # 投影层
+  projection:
+    embed_dim: 256
+
+# 训练配置
+training:
+  # 多任务学习权重
+  loss_weights:
+    itc: 1.0  # Image-Text Contrastive
+    itm: 1.0  # Image-Text Matching
+    lm: 1.0   # Language Modeling
+  
+  # 优化器
+  optimizer:
+    type: "adamw"
+    learning_rate: 3.0e-4
+    weight_decay: 0.05
+    betas: [0.9, 0.999]
+  
+  # 学习率调度
+  scheduler:
+    type: "cosine"
+    warmup_steps: 3000
+    max_steps: 200000
+  
+  # 训练参数
+  batch_size: 128
+  num_epochs: 20
+  gradient_accumulation_steps: 2
+  max_grad_norm: 1.0
+  
+  # 混合精度
+  fp16: true
+
+# 数据配置
+data:
+  # 图像配置
+  image:
+    size: 384  # 更高分辨率
+    mean: [0.485, 0.456, 0.406]
+    std: [0.229, 0.224, 0.225]
+  
+  # 文本配置
+  text:
+    max_encoder_length: 35
+    max_decoder_length: 40
+    prompt: "a picture of "
+
+# 推理配置
+inference:
+  # 图像描述生成
+  caption:
+    num_beams: 3
+    max_length: 20
+    min_length: 5
+    repetition_penalty: 1.0
+  
+  # VQA
+  vqa:
+    num_beams: 3
+    max_length: 10
+    min_length: 1
+
+# 输出配置
+output:
+  save_dir: "outputs/blip"
+  log_interval: 100
+  save_interval: 5000
+  eval_interval: 1000

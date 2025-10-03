@@ -1,0 +1,79 @@
+# DALL-E Model Configuration
+
+model:
+  # 模型类型
+  name: "dalle_mini"
+  
+  # dVAE配置（图像tokenizer）
+  dvae:
+    vocab_size: 8192
+    embed_dim: 256
+    num_layers: 3
+    num_heads: 8
+    image_size: 256
+    patch_size: 8
+  
+  # 文本编码器
+  text_encoder:
+    vocab_size: 50257
+    max_position_embeddings: 256
+    embed_dim: 512
+    num_layers: 6
+    num_heads: 8
+  
+  # Transformer配置
+  transformer:
+    total_seq_length: 1280  # 256 text + 1024 image tokens
+    embed_dim: 1024
+    num_layers: 24
+    num_heads: 16
+    mlp_ratio: 4.0
+    dropout: 0.1
+
+# 训练配置
+training:
+  # 优化器
+  optimizer:
+    type: "adamw"
+    learning_rate: 3.0e-4
+    weight_decay: 0.01
+    betas: [0.9, 0.96]
+  
+  # 学习率调度
+  scheduler:
+    type: "cosine"
+    warmup_steps: 4000
+    max_steps: 500000
+  
+  # 训练参数
+  batch_size: 64
+  num_epochs: 100
+  gradient_accumulation_steps: 4
+  max_grad_norm: 1.0
+  
+  # 混合精度
+  fp16: true
+
+# 数据配置
+data:
+  image_size: 256
+  text_max_length: 256
+  
+  # 数据增强
+  augmentation:
+    random_resized_crop: true
+    random_horizontal_flip: true
+
+# 生成配置
+generation:
+  num_images: 4
+  temperature: 1.0
+  top_k: 256
+  top_p: 0.95
+
+# 输出配置
+output:
+  save_dir: "outputs/dalle"
+  log_interval: 100
+  save_interval: 5000
+  eval_interval: 2000
