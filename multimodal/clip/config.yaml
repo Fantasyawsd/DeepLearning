@@ -1,0 +1,97 @@
+# CLIP Model Configuration
+
+model:
+  # 模型类型
+  name: "clip_vit_base"
+  
+  # 图像编码器配置
+  image_encoder:
+    type: "vision_transformer"  # vit, resnet50
+    image_size: 224
+    patch_size: 16
+    embed_dim: 768
+    depth: 12
+    num_heads: 12
+    mlp_ratio: 4.0
+  
+  # 文本编码器配置
+  text_encoder:
+    type: "transformer"
+    vocab_size: 49408
+    max_position_embeddings: 77
+    embed_dim: 512
+    depth: 12
+    num_heads: 8
+    mlp_ratio: 4.0
+  
+  # 投影层配置
+  projection:
+    embed_dim: 512  # 最终嵌入维度
+  
+  # 温度参数
+  temperature: 0.07
+
+# 训练配置
+training:
+  # 优化器
+  optimizer:
+    type: "adamw"
+    learning_rate: 5.0e-4
+    weight_decay: 0.2
+    betas: [0.9, 0.98]
+    eps: 1.0e-6
+  
+  # 学习率调度
+  scheduler:
+    type: "cosine"
+    warmup_steps: 2000
+    max_steps: 100000
+  
+  # 训练参数
+  batch_size: 256
+  num_epochs: 32
+  gradient_accumulation_steps: 1
+  max_grad_norm: 1.0
+  
+  # 混合精度
+  fp16: true
+  
+  # 分布式训练
+  distributed: false
+  world_size: 1
+
+# 数据配置
+data:
+  # 图像预处理
+  image:
+    size: 224
+    mean: [0.48145466, 0.4578275, 0.40821073]
+    std: [0.26862954, 0.26130258, 0.27577711]
+    interpolation: "bicubic"
+  
+  # 文本处理
+  text:
+    max_length: 77
+    truncation: true
+    padding: "max_length"
+  
+  # 数据增强
+  augmentation:
+    random_resized_crop: true
+    random_horizontal_flip: true
+    color_jitter: true
+
+# 评估配置
+evaluation:
+  batch_size: 128
+  zero_shot_datasets:
+    - "imagenet"
+    - "cifar10"
+    - "cifar100"
+
+# 保存和日志
+output:
+  save_dir: "outputs/clip"
+  log_interval: 100
+  save_interval: 5000
+  eval_interval: 1000

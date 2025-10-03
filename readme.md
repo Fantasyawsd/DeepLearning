@@ -40,6 +40,11 @@ DeepLearning/
 │       └── llm/              # 大语言模型
 │           ├── llama/        # LLaMA (2023)
 │           └── chatglm/      # ChatGLM (2023)
+├── multimodal/               # 🌟 多模态模型 NEW!
+│   ├── clip/                 # CLIP (2021) - 图像-文本对比学习
+│   ├── dalle/                # DALL-E (2021) - 文本到图像生成
+│   ├── blip/                 # BLIP (2022) - 视觉-语言理解和生成
+│   └── flamingo/             # Flamingo (2022) - 少样本多模态学习
 ├── utils/                    # 通用工具
 ├── docs/                     # 文档
 └── configs/                  # 配置文件
@@ -72,14 +77,20 @@ DeepLearning/
 **主要指南:**
 - **[用户指南](docs/USER_GUIDE.md)** - 完整框架使用教程
 - **[入门教程](docs/TUTORIAL.md)** - 逐步教程和代码示例
+- **[🌟 多模态大模型完整教程](docs/MULTIMODAL_TUTORIAL.md)** - 从入门到精通，包括经典网络、模型和技术 ⭐
 - **[文档索引](docs/README.md)** - 文档导航中心
 
-**模型文档:**
+**单模态模型文档:**
 - **[MAE 完整指南](computer_vision/image_classification/transformer/mae/README.md)** - 自监督视觉学习
 - **[ViT 指南](computer_vision/image_classification/transformer/vit/README.md)** - Vision Transformer
 - **[ResNet 指南](computer_vision/image_classification/cnn/resnet/README.md)** - 残差网络
 - **[YOLOv1 指南](computer_vision/object_detection/yolo_series/yolov1/README.md)** - 实时目标检测
 - **[GPT 指南](nlp/language_models/gpt_series/gpt/README.md)** - 生成式语言模型
+
+**多模态模型文档:**
+- **[CLIP 指南](multimodal/clip/README.md)** - 图像-文本对比学习
+- **[DALL-E 指南](multimodal/dalle/README.md)** - 文本到图像生成
+- **[BLIP 指南](multimodal/blip/README.md)** - 统一的视觉-语言理解和生成
 
 ## 🏆 已实现模型
 
@@ -115,6 +126,22 @@ DeepLearning/
   - 自回归语言建模
   - 文本生成和序列分类
   - GPT-Small/Medium/Large/XL变体
+
+### 🌈 多模态模型
+
+**视觉-语言模型:**
+- 🆕 **CLIP** (2021) - 图像-文本对比学习
+  - 零样本图像分类
+  - 图像-文本检索
+  - 4亿图像-文本对预训练
+- 🆕 **DALL-E** (2021) - 文本到图像生成
+  - 创意图像生成
+  - 艺术风格迁移
+  - 概念组合能力
+- 🆕 **BLIP** (2022) - 统一的视觉-语言理解和生成
+  - 图像描述生成
+  - 视觉问答 (VQA)
+  - 多任务预训练
 
 ## 🚀 快速开始
 
@@ -173,6 +200,8 @@ model = load_pretrained_vit('vit_base_patch16_224')
 | ResNet-50 | 图像分类 | ImageNet | 25M | 76.2% Top-1 |
 | YOLOv1 | 目标检测 | PASCAL VOC | 45M | 63.4 mAP |
 | GPT-Small | 语言模型 | WebText | 117M | 18.3 PPL |
+| CLIP | 零样本分类 | ImageNet | 151M | 76.2% Top-1 |
+| BLIP | 图像描述 | COCO | 224M | 129.7 CIDEr |
 
 ## 🛠️ 开发路线图
 
@@ -184,8 +213,8 @@ model = load_pretrained_vit('vit_base_patch16_224')
 - [ ] **LLaMA, ChatGLM** - 现代大语言模型
 
 ### 🔮 未来计划
-- [ ] **扩散模型** (Diffusion Models)
-- [ ] **多模态模型** (CLIP, DALL-E)
+- [ ] **扩散模型** (Stable Diffusion, DDPM)
+- [x] **多模态模型** (CLIP, DALL-E, BLIP) - 已添加教程和架构 ✅
 - [ ] **强化学习** (DQN, PPO)
 - [ ] **图神经网络** (GCN, GraphSAGE)
 
